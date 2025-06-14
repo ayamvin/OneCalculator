@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneCalculator.MainPage"
+             Shell.BackgroundColor="{AppThemeBinding Light={StaticResource CustomLightBG},
+                                                     Dark={StaticResource CustomDarkBG}}"
+             Shell.ForegroundColor="{AppThemeBinding Light=Black, Dark=White}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Secondary"
+                 Text="History"
+                 Command="{Binding ShowHistoryCommand}"/>
+        <ToolbarItem Order="Secondary"
+                 Text="Choose Theme"
+                 Command="{Binding ChooseThemeCommand}"/>
+        <ToolbarItem Order="Secondary"
+                 Text="Privacy Policy"
+                 Command="{Binding ShowPrivacyPolicyCommand}"/>
+        <ToolbarItem Order="Secondary"
+                 Text="Send FeedBack"
+                 Command="{Binding SendFeedbackCommand}"/>
+        <ToolbarItem Order="Secondary"
+                 Text="Help"
+                 Command="{Binding SendFeedbackCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <Style x:Key="BaseCalculatorButtonStyle"
+               TargetType="Button">
+            <Setter Property="WidthRequest"
+                    Value="80" />
+            <Setter Property="HeightRequest"
+                    Value="80" />
+            <Setter Property="CornerRadius"
+                    Value="20" />
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light=Black, Dark=White}"/>
+            <Setter Property="FontSize"
+                    Value="32" />
+            <Setter Property="FontAttributes"
+                    Value="Bold"/>
+            <Setter Property="Command"
+                    Value="{Binding HandleButtonPressCommand}"/>
+            <Setter Property="CommandParameter"
+                    Value="{Binding Source={RelativeSource Self}, Path=Text}"/>
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource CustomLightBG},
+                                            Dark={StaticResource CustomDarkBG}}"/>
+        </Style>
+        <Style x:Key="NumberButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource BaseCalculatorButtonStyle}">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource CustomLightButtonBG},
+                                            Dark={StaticResource CustomDarkButtonBG}}"/>
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource CustomLightNums},
+                                            Dark={StaticResource CustomDarkNums}}"/>
+        </Style>
+        <Style x:Key="OperatorButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource BaseCalculatorButtonStyle}">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource CustomLightOptButtons},
+                                            Dark={StaticResource CustomDarkOptButtons}}"/>
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource CustomLightNums},
+                                            Dark={StaticResource CustomDarkNums}}"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="Auto, *">
+        <Border StrokeShape="RoundRectangle 0 0 0 0"
+                Stroke="Transparent"
+                Background="LightBlue"
+                HeightRequest="300">
+            <VerticalStackLayout>
+                <Entry Text="{Binding ExpressionDisplay}"
+                       HorizontalTextAlignment="End"
+                       FontSize="75"
+                       TextColor="Black"/>
+                <Label Text="{Binding ResultDisplay}"
+                       HorizontalTextAlignment="End"
+                       FontSize="50"
+                       TextColor="Black"/>
+            </VerticalStackLayout>
+        </Border>
+        <Grid Grid.Row="1"
+              Padding="10"
+              RowDefinitions="*,*,*,*,*"
+              ColumnDefinitions="*,*,*,*"
+              RowSpacing="10"
+              ColumnSpacing="10">
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CustomLightACButton},
+                                                      Dark={StaticResource CustomDarkACButton}}"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="AC"/>
+
+            <Button Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="( )"/>
+
+            <Button Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="%"/>
+
+            <Button Grid.Row="0"
+                    Grid.Column="3"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="÷"/>
+
+            <Button Grid.Row="1"
+                    Grid.Column="3"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="×"/>
+
+            <Button Grid.Row="2"
+                    Grid.Column="3"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="−"/>
+
+            <Button Grid.Row="3"
+                    Grid.Column="3"
+                    Style="{StaticResource OperatorButtonStyle}"
+                    Text="+"/>
+
+            <!-- ROW 5 -->
+
+            <Button Grid.Row="4"
+                    Grid.Column="0"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="0"/>
+
+            <Button Grid.Row="4"
+                    Grid.Column="1"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="."/>
+
+            <Button Grid.Row="4"
+                    Grid.Column="2"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="DE"/>
+
+            <Button Grid.Row="4"
+                    Grid.Column="3"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="="/>
+
+            <!-- ROW 3 -->
+
+            <Button Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="1"/>
+
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="2"/>
+
+            <Button Grid.Row="3"
+                    Grid.Column="2"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="3"/>
+
+            <!-- ROW 2 -->
+
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="4"/>
+
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="5"/>
+
+            <Button Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="6"/>
+
+            <!-- ROW 1 -->
+
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="7"/>
+
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="8"/>
+
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource NumberButtonStyle}"
+                    Text="9"/>
+
+        </Grid>
+    </Grid>
+
+</ContentPage>
