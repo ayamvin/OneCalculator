@@ -7,4 +7,5 @@ namespace OneCalculator
     {
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
     }
+
 }
